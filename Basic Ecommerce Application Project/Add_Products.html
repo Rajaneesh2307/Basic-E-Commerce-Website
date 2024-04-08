@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/Add_Products.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="nav">
+      <a href="/Add_Products.html">Home</a>
+      <a href="/Fashion.html">Fashion</a>
+      <a href="/Wishlist.html">Wishlist</a>
+      <a href="/Cart.html">Cart</a>
+    </div>
+    <div>
+      <form id="form">
+        <h1>Enter Your Product Details</h1>
+        <input
+          type="text"
+          placeholder="Enter Your Brand Name"
+          id="bname"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Enter Your Product Name"
+          id="pname"
+          required
+        />
+        <input
+          type="number"
+          placeholder="Enter Product Price"
+          id="price"
+          required
+        />
+        <select id="role">
+          <option>Category</option>
+          <option value="Men">Men</option>
+          <option value="Women">Women</option>
+        </select>
+        <input
+          type="text"
+          placeholder="Enter Expected Delivery Date"
+          id="delivery"
+          required
+        />
+        <input id="btn" type="submit" value="Product" />
+      </form>
+    </div>
+  </body>
+</html>
+<script>
+  let OurData = JSON.parse(localStorage.getItem("AddProducts")) || [];
+  document
+    .querySelector("#form")
+    .addEventListener("submit", addProductsInToCard);
+  function addProductsInToCard() {
+    // event.preventDefault();
+    let object = {
+      Brand_Name: document.querySelector("#bname").value,
+      Product_Name: document.querySelector("#pname").value,
+      Product_Price: document.querySelector("#price").value,
+      Category: document.querySelector("#role").value,
+      Product_Delivery: document.querySelector("#delivery").value,
+    };
+    OurData.push(object);
+    localStorage.setItem("AddProducts", JSON.stringify(OurData));
+    alert("Product has been Added to the Fashion..");
+  }
+</script>

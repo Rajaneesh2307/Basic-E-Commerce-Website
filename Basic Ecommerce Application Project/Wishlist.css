@@ -1,0 +1,139 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  background-color: lightgrey;
+}
+
+#nav {
+  width: 100%;
+  height: 50px;
+  background-color: whitesmoke;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  position: fixed;
+}
+
+#nav a {
+  text-decoration: none;
+  color: lightslategrey;
+  font-size: 24px;
+  margin-left: 250px;
+  position: relative;
+  top: 14px;
+}
+
+#nav a:hover {
+  color: blueviolet;
+}
+
+h1 {
+  text-align: center;
+  color: blueviolet;
+  padding-top: 65px;
+}
+
+#Output {
+  display: grid;
+  grid-template-columns: repeat(4, 250px);
+  grid-template-rows: repeat(4, auto);
+  justify-content: center;
+}
+
+#btn1 {
+  margin-top: 8px;
+  padding: 4px 6px;
+  margin-left: 25px;
+  background-color: grey;
+  border: 1px solid grey;
+  outline: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#btn2 {
+  margin-top: 8px;
+  padding: 4px 6px;
+  margin-left: 25px;
+  background-color: gray;
+  outline: none;
+  border: 1px solid gray;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#btn1:hover {
+  transition: 0.55s ease;
+  color: white;
+  transform: scale(1.1);
+  background-color: lightseagreen;
+  border: 1px solid whitesmoke;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+
+#btn2:hover {
+  transition: 0.55s ease;
+  color: white;
+  transform: scale(1.1);
+  background-color: lightcoral;
+  border: 1px solid whitesmoke;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+
+.card {
+  height: 360px;
+  width: 220px;
+  margin-top: 40px;
+  background-color: whitesmoke;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+    rgb(209, 213, 219) 0px 0px 0px 1px inset;
+}
+
+.card:hover {
+  cursor: pointer;
+  transition: 0.55s ease;
+  transform: scale(1.1);
+}
+
+#search {
+  font-size: 16px;
+  width: 280px;
+  padding: 7px;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+  outline: none;
+  border: 1px solid #d9d9d9;
+  margin-left: 565px;
+  margin-top: 14px;
+}
+
+#btn {
+  width: 90px;
+  height: 32px;
+  padding: 6px;
+  position: absolute;
+  top: 15.8%;
+  left: 860px;
+  border: #d9d9d9;
+  background-color: lightslategray;
+  outline: none;
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+  cursor: pointer;
+}
+
+#btn:hover {
+  transition: 0.55s ease;
+  color: whitesmoke;
+  background-color: blueviolet;
+}
+
+#search:hover {
+  transition: 0.55s ease;
+}

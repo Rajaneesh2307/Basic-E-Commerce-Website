@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/Fashion.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="nav">
+      <a href="/Add_Products.html">Home</a>
+      <a href="/Fashion.html">Fashion</a>
+      <a href="/Wishlist.html">Wishlist</a>
+      <a href="/Cart.html">Cart</a>
+    </div>
+
+    <h1>My Collections</h1>
+
+    <div id="main">
+      <input id="search" type="text" placeholder="Search for products.." />
+      <button id="btn">Search</button>
+    </div>
+
+    <select id="Category">
+      <option>Sort By Category</option>
+      <option value="Men">Men</option>
+      <option value="Women">Women</option>
+    </select>
+
+    <select id="Price">
+      <option>Sort By Price</option>
+      <option value="HTL">HTL</option>
+      <option value="LTH">LTH</option>
+    </select>
+
+    <div id="Output"></div>
+  </body>
+</html>
+<script>
+  let SearchData = JSON.parse(localStorage.getItem("AddProducts"));
+  document.querySelector("#btn").addEventListener("click", searchData);
+  function searchData() {
+    let search_data = document.querySelector("#search").value;
+    let our_output = SearchData.filter(function (value) {
+      return value.Product_Name === search_data;
+    });
+    DisplayDataInCard(our_output);
+  }
+
+  let SortData = JSON.parse(localStorage.getItem("AddProducts"));
+  document.querySelector("#Price").addEventListener("change", sortingData);
+  function sortingData() {
+    let output = document.querySelector("#Price").value;
+    console.log(output);
+    if (output === "HTL") {
+      SortData.sort(function (value1, value2) {
+        return value2.Product_Price - value1.Product_Price;
+      });
+      DisplayDataInCard(SortData);
+    } else if (output === "LTH") {
+      SortData.sort(function (value1, value2) {
+        return value1.Product_Price - value2.Product_Price;
+      });
+      DisplayDataInCard(SortData);
+    }
+  }
+
+  let CategoryData = JSON.parse(localStorage.getItem("AddProducts"));
+  document
+    .querySelector("#Category")
+    .addEventListener("change", sortingCategory);
+  function sortingCategory() {
+    let output1 = document.querySelector("#Category").value;
+    let output2 = CategoryData.filter(function (value) {
+      return value.Category === output1;
+    });
+    // DisplayDataInCard(output2);
+    let sorting = output2.sort(function (a, b) {
+      return b.Product_Price - a.Product_Price;
+    });
+    DisplayDataInCard(sorting);
+  }
+
+  let Data = JSON.parse(localStorage.getItem("AddProducts"));
+  let EmptyArray = JSON.parse(localStorage.getItem("Wishlist")) || [];
+  let EmptyArray1 = JSON.parse(localStorage.getItem("AddToCart")) || [];
+  function DisplayDataInCard(Data) {
+    document.querySelector("#Output").innerHTML = "";
+
+    Data.forEach(function (value) {
+      let div = document.createElement("div");
+      div.className = "card";
+
+      let image = document.createElement("img");
+      image.src =
+        "https://assets.ajio.com/medias/sys_master/root/20230615/Xs7z/648b116042f9e729d7449239/-1117Wx1400H-466278337-white-MODEL.jpg";
+      image.style = "height: 200px; width: 220px; cursor: pointer";
+
+      let h4 = document.createElement("h4");
+      h4.innerText = value.Brand_Name;
+      h4.style = "margin-top: 4px; text-align: center";
+
+      let p1 = document.createElement("p");
+      p1.innerText = value.Product_Name;
+      p1.style = "color: gray; margin-top: 4px; margin-left: 12px";
+
+      let h5 = document.createElement("h4");
+      h5.innerText = "Price : " + "$" + value.Product_Price;
+      h5.style = "margin-top: 4px; margin-left: 12px";
+
+      let p3 = document.createElement("p");
+      p3.innerText = "Category : " + value.Category;
+      p3.style = "color: lightseagreen; margin-top: 4px; margin-left: 12px";
+
+      let p4 = document.createElement("p");
+      p4.innerText = value.Product_Delivery;
+      p4.style = "color: gray; margin-top: 4px; margin-left: 12px";
+
+      let btn1 = document.createElement("button");
+      btn1.innerText = "Wishlist";
+      btn1.id = "btn1";
+      btn1.addEventListener("click", function () {
+        addToWishlist(value);
+      });
+      function addToWishlist(value) {
+        EmptyArray.push(value);
+        localStorage.setItem("Wishlist", JSON.stringify(EmptyArray));
+        alert("Product has been Added to Wishlist..");
+      }
+
+      let btn2 = document.createElement("button");
+      btn2.innerText = "Add To Cart";
+      btn2.id = "btn2";
+      btn2.addEventListener("click", function () {
+        addToCart(value);
+      });
+      function addToCart(value) {
+        EmptyArray1.push(value);
+        localStorage.setItem("AddToCart", JSON.stringify(EmptyArray1));
+        alert("Product has been Added to Cart..");
+      }
+
+      div.append(image, h4, p1, h5, p3, p4, btn1, btn2);
+      document.querySelector("#Output").append(div);
+    });
+  }
+  DisplayDataInCard(Data);
+</script>

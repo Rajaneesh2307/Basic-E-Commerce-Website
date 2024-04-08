@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/Wishlist.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="nav">
+      <a href="/Add_Products.html">Home</a>
+      <a href="/Fashion.html">Fashion</a>
+      <a href="/Wishlist.html">Wishlist</a>
+      <a href="/Cart.html">Cart</a>
+    </div>
+
+    <h1>My Collections</h1>
+
+    <div id="main">
+      <input id="search" type="text" placeholder="Search for products.." />
+      <button id="btn">Search</button>
+    </div>
+
+    <div id="Output"></div>
+
+    <!-- <button><a href="/PaymentPage.html">Payment</a></button> -->
+  </body>
+</html>
+<script>
+  let SearchData = JSON.parse(localStorage.getItem("Wishlist"));
+  document
+    .querySelector("#btn")
+    .addEventListener("click", searchDataUsingSearchBar);
+  function searchDataUsingSearchBar() {
+    let data = document.querySelector("#search").value;
+    let Filter = SearchData.filter(function (value) {
+      return value.Product_Name === data;
+    });
+    DisplayDataInCard(Filter);
+  }
+
+  let Data = JSON.parse(localStorage.getItem("Wishlist"));
+  let EmptyArray1 = JSON.parse(localStorage.getItem("AddToCart")) || [];
+  function DisplayDataInCard(Data) {
+    document.querySelector("#Output").innerHTML = "";
+
+    Data.forEach(function (value, index) {
+      let div = document.createElement("div");
+      div.className = "card";
+
+      let image = document.createElement("img");
+      image.src =
+        "https://www.thewalkdeal.com/cdn/shop/products/Belive-Black.jpg?v=1640675713";
+      image.style = "height: 200px; width: 220px; cursor: pointer";
+
+      let h4 = document.createElement("h4");
+      h4.innerText = value.Brand_Name;
+      h4.style = "margin-top: 4px; text-align: center";
+
+      let p1 = document.createElement("p");
+      p1.innerText = value.Product_Name;
+      p1.style = "color: gray; margin-top: 4px; margin-left: 12px";
+
+      let h5 = document.createElement("h4");
+      h5.innerText = "Price : " + "$" + value.Product_Price;
+      h5.style = "margin-top: 4px; margin-left: 12px";
+
+      let p3 = document.createElement("p");
+      p3.innerText = "Category : " + value.Category;
+      p3.style = "color: lightseagreen; margin-top: 4px; margin-left: 12px";
+
+      let p4 = document.createElement("p");
+      p4.innerText = value.Product_Delivery;
+      p4.style = "color: gray; margin-top: 4px; margin-left: 12px";
+
+      let btn1 = document.createElement("button");
+      btn1.innerText = "Remove";
+      btn1.id = "btn1";
+      btn1.addEventListener("click", function () {
+        removeProduct(value, index);
+      });
+      function removeProduct(value, index) {
+        Data.splice(index, 1);
+        localStorage.setItem("Wishlist", JSON.stringify(Data));
+        alert("Product has been Removed from the Cart..");
+        window.location.reload();
+      }
+
+      let btn2 = document.createElement("button");
+      btn2.innerText = "Add To Cart";
+      btn2.id = "btn2";
+      btn2.addEventListener("click", function () {
+        addToCart(value);
+      });
+      function addToCart(value) {
+        EmptyArray1.push(value);
+        localStorage.setItem("AddToCart", JSON.stringify(EmptyArray1));
+        alert("Product has been Added to Cart..");
+      }
+
+      div.append(image, h4, p1, h5, p3, p4, btn1, btn2);
+      document.querySelector("#Output").append(div);
+    });
+  }
+  DisplayDataInCard(Data);
+</script>

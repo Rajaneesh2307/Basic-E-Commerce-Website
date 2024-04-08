@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/Cart.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="nav">
+      <a href="/Add_Products.html">Home</a>
+      <a href="/Fashion.html">Fashion</a>
+      <a href="/Wishlist.html">Wishlist</a>
+      <a href="/Cart.html">Cart</a>
+    </div>
+
+    <h1>My Collections</h1>
+
+    <div id="main">
+      <input id="search" type="text" placeholder="Search for products.." />
+      <button id="btn">Search</button>
+    </div>
+
+    <h2 id="TotalPrice">Products Total Price is :</h2>
+
+    <button class="BuyNow"><a href="/PaymentPage.html">Buy Now</a></button>
+
+    <div id="Output"></div>
+  </body>
+</html>
+<script>
+  let SearchData = JSON.parse(localStorage.getItem("AddToCart"));
+  document.querySelector("#btn").addEventListener("click", SearchItem);
+  function SearchItem() {
+    let searchValue = document.querySelector("#search").value;
+    let price = "";
+    let value = SearchData.filter(function (value) {
+      return value.Product_Name === searchValue;
+    });
+    DisplayDataInCard(value);
+    value.forEach(function (value1) {
+      price = price + value1.Product_Price;
+    });
+    document.querySelector("#TotalPrice").innerText =
+      "Products Total Price is : " + " $" + price;
+  }
+
+  let Data = JSON.parse(localStorage.getItem("AddToCart"));
+  let TotalPrice = 0;
+  function DisplayDataInCard(Data) {
+    document.querySelector("#Output").innerHTML = "";
+
+    Data.forEach(function (value, index) {
+      let div = document.createElement("div");
+      div.className = "card";
+
+      let image = document.createElement("img");
+      image.src =
+        "https://www.realmenrealstyle.com/wp-content/uploads/2023/11/How-To-Wear-Mens-Denim-Shirts-sunglasses.jpg";
+      image.style = "height: 200px; width: 220px; cursor: pointer";
+
+      let h4 = document.createElement("h4");
+      h4.innerText = value.Brand_Name;
+      h4.style = "margin-top: 4px; text-align: center";
+
+      let p1 = document.createElement("p");
+      p1.innerText = value.Product_Name;
+      p1.style = "color: gray; margin-top: 4px; margin-left: 12px";
+
+      let h5 = document.createElement("h4");
+      h5.innerText = "Price : " + "$" + value.Product_Price;
+      h5.style = "margin-top: 4px; margin-left: 12px";
+
+      let p3 = document.createElement("p");
+      p3.innerText = "Category : " + value.Category;
+      p3.style = "color: lightseagreen; margin-top: 4px; margin-left: 12px";
+
+      let p4 = document.createElement("p");
+      p4.innerText = value.Product_Delivery;
+      p4.style = "color: gray; margin-top: 4px; margin-left: 12px";
+
+      let btn1 = document.createElement("button");
+      btn1.innerText = "Remove";
+      btn1.id = "btn1";
+      btn1.addEventListener("click", function () {
+        removeProduct(value, index);
+      });
+      function removeProduct(value, index) {
+        Data.splice(index, 1);
+        localStorage.setItem("AddToCart", JSON.stringify(Data));
+        window.location.reload();
+        alert("Product has been Removed from the Cart..");
+      }
+
+      let Price = parseInt(value.Product_Price);
+      TotalPrice = TotalPrice + Price;
+      document.querySelector("#TotalPrice").innerText =
+        "Products Total Price is : " + " $" + TotalPrice;
+
+      div.append(image, h4, p1, h5, p3, p4, btn1);
+      document.querySelector("#Output").append(div);
+    });
+  }
+  DisplayDataInCard(Data);
+</script>
